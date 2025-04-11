@@ -1,0 +1,43 @@
+{
+    "/": {
+        "details": "Title Screen",
+        "state": "Selecting Mode"
+    },
+    "/credits": {
+        "details": "Title Screen",
+        "state": "Viewing Credits"
+    },
+    "/chat": {
+        "details": "Chat",
+        "state": "Chatting"
+    },
+    "/home": {
+        "details": "User Page",
+        "state": "Home"
+    },
+    "/user/home": {
+        "details": "User Page",
+        "state": "Home"
+    },
+    "/user/appearance": {
+        "details": "User Page",
+        "state": "Changing Appearance",
+        "smallImageKey": "appearance"
+    },
+    "/user/mall": {
+        "details": "User Page",
+        "state": "Viewing Mall"
+    },
+    "/user/leaderboards": {
+        "details": "User Page",
+        "state": "Viewing Leaderboards"
+    },
+    "/user/followers": {
+        "details": "User Page",
+        "state": "Viewing Followers"
+    },
+    "/user/staff": {
+        "details": "😳",
+        "state": "😳"
+    }
+}

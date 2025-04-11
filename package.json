@@ -1,0 +1,41 @@
+{
+  "name": "agario-hub-desktop",
+  "version": "1.0.0-beta.1",
+  "main": "main.js",
+  "build": {
+    "appId": "xyz.agariohub.desktop",
+    "productName": "AgarIO Hub",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "src/image/logo.ico"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "allowElevation": true,
+    "runAfterFinish": true,
+    "closeAppBeforeInstall": true
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "Py9",
+  "license": "GPL-3.0-or-later",
+  "description": "",
+  "dependencies": {
+    "discord-rpc": "^4.0.1"
+  },
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12"
+  }
+}
