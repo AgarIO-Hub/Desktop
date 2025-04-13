@@ -124,10 +124,13 @@ function pageToActivity(page, fromIdle = false) { // Someone please fix this mes
 }
 
 setInterval(() => {
-    if (currentPage !== previousPage) {
-        pageToActivity(currentPage);
-        previousPage = currentPage;
-    }
+    try { // Errors when discord isn't open - Doesn't affect much, it just floods the console
+        if (currentPage !== previousPage) {
+            pageToActivity(currentPage);
+            previousPage = currentPage;
+        }
+    } catch (error) {}
+    
 }, 5000);
 
 function setPage(page) {
