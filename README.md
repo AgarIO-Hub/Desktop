@@ -32,3 +32,4 @@ To contribute to this project:
   "splash": true // Whether to show the splash screen on launch
 }
 ```
+test
