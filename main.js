@@ -1,5 +1,5 @@
 const { app, BrowserWindow, session, globalShortcut } = require('electron');
-const { updateActivity, pageToActivity } = require('./src/modules/discord-rpc');
+const { setPage } = require('./src/modules/discord-rpc');
 const path = require('path');
 
 const CONFIG = require('./src/config.json');
@@ -11,7 +11,6 @@ const SPLASH_DURATION = CONFIG.splash ? 10250 : 0; // (in milliseconds)
 app.name = "AgarIO Hub"
 
 let mainWindow = null;
-let currentPage = null;
 
 function createSplashScreen() {
     const splash = new BrowserWindow({
@@ -52,6 +51,12 @@ function createWindow() { // Main game window
     mainWindow.removeMenu();
     mainWindow.loadURL('https://agariohub.xyz');
 
+    mainWindow.webContents.on('did-navigate', (event, url) => { // Prevents accidentally going to userpage after logging in
+        if (url.endsWith('/home')) {
+            mainWindow.loadURL('https://agariohub.xyz');
+        }
+    });
+
     if (CONFIG.devtools) {
         mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
@@ -66,42 +71,32 @@ function createWindow() { // Main game window
 app.on('browser-window-created', (e, window) => {
     window.removeMenu();
 
-    // Rich presence currently updates on every navigation but I'll probably change it to update every 5 seconds
-    // Could fix the idle detection issue and any rate limiting issues
+    window.webContents.on('did-finish-load', () => { // Disables middle clicking links because it caused session issues
+        mainWindow.webContents.executeJavaScript(`
+            document.addEventListener('auxclick', (e) => {
+                if (e.button === 1 && e.target.closest('a')) {
+                    e.preventDefault();
+                }
+            }, true);
+        `);
+    });
+
     window.webContents.on('did-navigate', (event, url) => {
-        currentPage = url;
-        pageToActivity(url);
+        setPage(url);
     });
 
     window.webContents.on('did-navigate-in-page', (event, url) => {
-        currentPage = url;
-        pageToActivity(url);
+        setPage(url);
     });
 
     window.on('focus', () => {
-        const currentUrl = window.webContents.getURL();
-        if (currentUrl !== currentPage && currentUrl.includes('agariohub.xyz')) {
-            pageToActivity(currentUrl, true);
-        }
-        currentPage = currentUrl;
+        const url = window.webContents.getURL();
+        setPage(url);
     });
 
     window.on('blur', () => {
-        currentPage = null; 
-        // This idle detection SUCKS
-        /*setTimeout(() => {
-            if (!currentPage) {
-                updateActivity({
-                    details: 'Idle',
-                    startTimestamp: new Date(),
-                    largeImageKey: 'logo',
-                    largeImageText: 'AgarIO Hub',
-                    instance: false
-                });
-            }
-        }, 5000);*/
+        setPage(null);
     });
-    
 });
 
 app.whenReady().then(() => {
