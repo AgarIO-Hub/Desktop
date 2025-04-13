@@ -1,6 +1,6 @@
 {
   "name": "agario-hub-desktop",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "main": "main.js",
   "build": {
     "appId": "xyz.agariohub.desktop",
