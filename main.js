@@ -72,7 +72,7 @@ app.on('browser-window-created', (e, window) => {
     window.removeMenu();
 
     window.webContents.on('did-finish-load', () => { // Disables middle clicking links because it caused session issues
-        mainWindow.webContents.executeJavaScript(`
+        window.webContents.executeJavaScript(`
             document.addEventListener('auxclick', (e) => {
                 if (e.button === 1 && e.target.closest('a')) {
                     e.preventDefault();
