@@ -11,7 +11,7 @@ To contribute to this project:
     `git clone https://github.com/AgarIO-Hub/Desktop.git`
 2. Install dependencies:  
     `npm install`
-3. Push your changes to the `main` branch.
+3. Open a pull request to the `main` branch with your changes.
 
 > ⚠️ All changes are subject to review before being merged.
 
