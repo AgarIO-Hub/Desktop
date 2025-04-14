@@ -44,7 +44,7 @@ function createWindow() { // Main game window
         show: false,
         webPreferences: {
             contextIsolation: true,
-            partition: 'persist:agariohub', // Token cookie is currently session only, I will fix this later on the back end
+            partition: 'persist:agariohub',
         },
     });
 
